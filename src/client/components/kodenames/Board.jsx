@@ -69,17 +69,18 @@ function Card(props) {
 
   return (
     <td className='card'>
-      <div className='flip-container' onClick={props.onclick}
-      style={{backgroundColor: props.color}}> 
-        <div className={flipperClass}> 
+      <div className='flip-container' onClick={props.onclick}> 
+        <div className={flipperClass} style={{backgroundColor: props.color}}> 
           <div className={faceFrontClass}> 
             <Typography variant="h6" color="inherit">
               {props.word}
             </Typography>
           </div> 
-          {/* <div className={faceBackClass}> 
-              Back
-          </div>  */}
+          <div className={faceBackClass}> 
+            <Typography variant="h6" color="inherit">
+              {props.word}
+            </Typography>
+          </div>
         </div> 
       </div>
     </td>
