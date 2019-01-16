@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import SimpleAppBar from './SimpleAppBar';
-import Board from './kodenames/Board';
-import '../static/css/app.css';
+import Game from './kodenames/Game';
 import 'typeface-roboto';
 
 export default class App extends Component {
@@ -16,8 +14,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-      <SimpleAppBar />
-      <Board />
+      <Game />
       </div>
     );
   }

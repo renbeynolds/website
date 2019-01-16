@@ -15,10 +15,10 @@ body {
   height: 100%;
   border-spacing: 5px;
   background-color: grey;
+  table-layout: fixed;
 }
 
 .card {
-  background-color: #F4F4F4;
   border-radius: 10px;
   text-align: center;
   filter: drop-shadow(3px 3px 2px #000000);

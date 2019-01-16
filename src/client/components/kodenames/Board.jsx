@@ -1,16 +1,38 @@
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
-import words from '../../static/words.json';
 
 export default class Board extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {words: words};
   }
 
-  componentDidMount() {
-    console.log(this.state.words);
+  handleCardClick(idx) {
+    this.props.onCardClick(idx); 
+  }
+
+  createTable = () => {
+    let table = [];
+
+
+    for(let row=0; row<5; row++) {
+      let children = [];
+      for(let col=0; col<5; col++) {
+        let idx = row*5 + col;
+        let card = this.props.cards[idx];
+        children.push(
+          <Card
+            onclick={() => this.handleCardClick(idx)}
+            word={card['word']}
+            color={card['active']? card['color']:'#F4F4F4' }
+            key={idx}
+          />
+        );
+      }
+      table.push(<tr>{children}</tr>);
+    }
+
+    return table;
   }
 
   render() {
@@ -18,41 +40,7 @@ export default class Board extends Component {
       <div className='board'>
         <table>
           <tbody>
-            <tr>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-            </tr>
-            <tr>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-            </tr>
-            <tr>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-            </tr>
-            <tr>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-            </tr>
-            <tr>
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-            </tr>
+            {this.createTable()}
           </tbody>
         </table>
       </div>
@@ -60,11 +48,12 @@ export default class Board extends Component {
   }
 }
 
-function Card() {
+function Card(props) {
   return (
-    <td className='card'>
+    <td className='card' onClick={props.onclick}
+    style={{backgroundColor: props.color}}>
       <Typography variant="h6" color="inherit">
-        Word
+        {props.word}
       </Typography>
     </td>
   );
