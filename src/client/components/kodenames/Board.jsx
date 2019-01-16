@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
+var classNames = require('classnames');
 
 export default class Board extends Component {
 
@@ -25,6 +26,7 @@ export default class Board extends Component {
             onclick={() => this.handleCardClick(idx)}
             word={card['word']}
             color={card['active']? card['color']:'#F4F4F4' }
+            active={card['active']}
             key={idx}
           />
         );
@@ -49,12 +51,38 @@ export default class Board extends Component {
 }
 
 function Card(props) {
+
+  var flipperClass = classNames({
+    flipper: true,
+    flipped: props.active
+  });
+
+  var faceFrontClass = classNames({
+    face: true,
+    front: true
+  })
+
+  var faceBackClass = classNames({
+    face: true,
+    back: true
+  })
+
   return (
-    <td className='card' onClick={props.onclick}
-    style={{backgroundColor: props.color}}>
-      <Typography variant="h6" color="inherit">
-        {props.word}
-      </Typography>
+    <td className='card'>
+      <div className='flip-container' onClick={props.onclick}
+      style={{backgroundColor: props.color}}> 
+        <div className={flipperClass}> 
+          <div className={faceFrontClass}> 
+            <Typography variant="h6" color="inherit">
+              {props.word}
+            </Typography>
+          </div> 
+          {/* <div className={faceBackClass}> 
+              Back
+          </div>  */}
+        </div> 
+      </div>
     </td>
   );
+
 }
