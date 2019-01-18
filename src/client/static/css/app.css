@@ -24,6 +24,7 @@ body {
   filter: drop-shadow(3px 3px 2px #000000);
   -webkit-filter: drop-shadow(3px 3px 2px #000000);
   -moz-filter: drop-shadow(3px 3px 2px #000000);
+  transition-duration: .5s;
 }
 
 td:active {
