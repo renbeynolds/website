@@ -19,7 +19,8 @@ export default class App extends Component {
     this.handleReset = this.handleReset.bind(this);
     this.handleSpymaster = this.handleSpymaster.bind(this);
 
-    this.state = {'boardNumber': 1, 'cards': this.generateCards(1)};
+    var cards = this.generateCards(1);
+    this.state = {'boardNumber': 1, 'cards': cards[2], 'red': cards[0], 'blue': cards[1]};
   }
 
   componentDidMount() {
@@ -36,12 +37,17 @@ export default class App extends Component {
       YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,
       'gray'
     ];
+
+    let red = 8;
+    let blue = 8;
     
     var rng = seedrandom(seed);
     if(rng() > 0.5) {
       colors.push(RED);
+      red += 1;
     } else {
       colors.push(BLUE);
+      blue += 1;
     }
 
     var cards = [];
@@ -59,23 +65,37 @@ export default class App extends Component {
       });
     }
 
-    return cards;
+    return [red, blue, cards];
   }
 
   handleBoardChange(seed) {
-    this.setState({'boardNumber': seed, 'cards': this.generateCards(seed)});
+    var cards = this.generateCards(seed);
+    this.setState({'boardNumber': seed, 'cards': cards[2], 'red': cards[0], 'blue': cards[1]});
   }
 
   handleCardClick(idx) {
     let new_cards = JSON.parse(JSON.stringify(this.state.cards));
     new_cards[idx].active = true;
-    this.setState({
-      cards: new_cards
-    });
+    if(new_cards[idx].color == BLUE) {
+      this.setState({
+        cards: new_cards,
+        blue: this.state.blue - 1
+      });
+    } else if(new_cards[idx].color == RED) {
+      this.setState({
+        cards: new_cards,
+        red: this.state.red - 1
+      });
+    } else {
+      this.setState({
+        cards: new_cards
+      });      
+    }
   }
 
   handleReset() {
-    this.setState({'cards': this.generateCards(this.state.boardNumber)});
+    var cards = this.generateCards(this.state.boardNumber);
+    this.setState({'cards': cards[2], 'red': cards[0], 'blue': cards[1]});
   }
 
   handleSpymaster() {
@@ -90,6 +110,8 @@ export default class App extends Component {
         onBoardChange={this.handleBoardChange}
         onReset={this.handleReset}
         onSpymaster={this.handleSpymaster}
+        red={this.state.red}
+        blue={this.state.blue}
       />
       <Board
         cards = {this.state.cards}

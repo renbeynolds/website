@@ -53,8 +53,14 @@ class SimpleAppBar extends React.Component {
       <div className={root}>
         <AppBar position="static" color="default">
           <Toolbar>
-            <Typography variant="h6" color="inherit" className={this.state.classes.grow}>
+            <Typography variant="h6" className={this.state.classes.grow}>
               KodeNames
+            </Typography>
+            <Typography variant="h6" className={this.state.classes.grow} style={{color: 'red'}}>
+              Red Remaining: {this.props.red}
+            </Typography>
+            <Typography variant="h6" className={this.state.classes.grow}  style={{color: 'blue'}}>
+              Blue Remaining: {this.props.blue}
             </Typography>
             <TextField
               id="board-number-input"
